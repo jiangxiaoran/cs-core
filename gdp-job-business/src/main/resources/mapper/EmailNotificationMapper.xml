@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aia.gdp.mapper.EmailNotificationMapper">
+    <select id="selectByJobCode" resultType="com.aia.gdp.model.EmailNotification">
+        SELECT * FROM email_notification WHERE job_code = #{jobCode}
+    </select>
+    <select id="selectAll" resultType="com.aia.gdp.model.EmailNotification">
+        SELECT * FROM email_notification
+    </select>
+    <select id="selectById" resultType="com.aia.gdp.model.EmailNotification">
+        SELECT * FROM email_notification WHERE id = #{id}
+    </select>
+    <insert id="insert" parameterType="com.aia.gdp.model.EmailNotification" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO email_notification (job_code, recipient_email, subject, body, status, send_time, created_at, updated_at, fail_reason, type, retry_count, is_system)
+        VALUES (#{jobCode}, #{recipientEmail}, #{subject}, #{body}, #{status}, #{sendTime}, #{createdAt}, #{updatedAt}, #{failReason}, #{type}, #{retryCount}, #{isSystem})
+    </insert>
+    <update id="update" parameterType="com.aia.gdp.model.EmailNotification">
+        UPDATE email_notification SET
+            job_code=#{jobCode}, recipient_email=#{recipientEmail}, subject=#{subject}, body=#{body}, status=#{status},
+            send_time=#{sendTime}, created_at=#{createdAt}, updated_at=#{updatedAt}, fail_reason=#{failReason},
+            type=#{type}, retry_count=#{retryCount}, is_system=#{isSystem}
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteById">
+        DELETE FROM email_notification WHERE id = #{id}
+    </delete>
+</mapper> 
